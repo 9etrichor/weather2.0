@@ -14,12 +14,12 @@ import FetchWeather from './data/FetchWeather';
 import { useState, useEffect } from 'react';
 function App() {
   const [weather, setWeather] = useState({})
-  const [location, setLocation] = useState("");
+  const [location, setLocation] = useState("Hong Kong");
 
   useEffect(() => {
     let ignore = false;
 
-    FetchWeather().then(result => {
+    FetchWeather(location).then(result => {
       if (!ignore) {
         setWeather(result);
       }
@@ -28,12 +28,15 @@ function App() {
     return () => {
       ignore = true;
     }
-  }, []);
-  
+  }, [location]);
+
+  const handleLocationChange = (location) => {
+    setLocation(location);
+  } 
 
   return (
     <div className='App'>
-      <Navbar location={location} setLocation={setLocation} />
+      <Navbar handleLocationChange={handleLocationChange} />
       <TodayWeather weather={weather}/>
       <ForecastWeek weather={weather} />
     </div>

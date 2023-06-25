@@ -1,7 +1,11 @@
+/* eslint-disable react/prop-types */
 import SpaSharpIcon from '@mui/icons-material/SpaSharp';
-import { Grid } from '@mui/material';
+import { Grid, TextField } from '@mui/material';
+import { useState } from 'react';
 
-const Navbar = () => {
+const Navbar = ({ handleLocationChange }) => {
+  const [location, setLocation] = useState("")
+
   return (
     <div>
       <Grid container className='h-20' >
@@ -18,7 +22,15 @@ const Navbar = () => {
         </Grid>
 
         <Grid item xs>
-          search
+          <TextField
+          id="standard-basic"
+          label="location"
+          variant="standard"
+          value={location}
+          onChange={(e) => {
+            setLocation(e.target.value);
+            handleLocationChange(e.target.value);
+          }} />
         </Grid>
 
         <Grid item xs={2}>
